@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cofre do Escape Room</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #1c1c1c;
+            color: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+            background-image: url('https://images.unsplash.com/photo-1526404079169-bbfb1a9f92e9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #ffcc00;
+            text-shadow: 2px 2px 8px #000;
+        }
+
+        input[type="password"] {
+            padding: 10px;
+            font-size: 1.2em;
+            border: none;
+            border-bottom: 2px solid #ffcc00;
+            background: none;
+            color: #fff;
+            width: 200px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        input[type="password"]:focus {
+            outline: none;
+            border-bottom: 2px solid #ff6600;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            background-color: #ffcc00;
+            color: #1c1c1c;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ff6600;
+            color: #fff;
+        }
+
+        #erro {
+            color: #ff6600;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        #conteudo {
+            display: none; /* Oculta o conteúdo até que a senha esteja correta */
+            margin-top: 20px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+        }
+
+        #conteudo h2 {
+            color: #ffcc00;
+            text-shadow: 2px 2px 5px #000;
+        }
+
+        #conteudo p {
+            font-size: 1.1em;
+            color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cofre do Escape Room</h1>
+    <input type="password" id="senha" placeholder="Digite a senha">
+    <br>
+    <button onclick="verificarSenha()">Abrir Cofre</button>
+    <p id="erro"></p>
+
+    <div id="conteudo">
+        <h2>Parabéns, você conseguiu!</h2>
+        <p>O cofre foi aberto e você escapou da sala!</p>
+    </div>
+
+    <script>
+        // Definindo a senha correta
+        const senhaCorreta = "glsht";
+        let tentativas = 3;
+
+        function verificarSenha() {
+            const senha = document.getElementById("senha").value;
+            const erroMsg = document.getElementById("erro");
+            const conteudo = document.getElementById("conteudo");
+
+            if (senha === senhaCorreta) {
+                erroMsg.textContent = ""; // Limpa a mensagem de erro
+                conteudo.style.display = "block"; // Exibe o conteúdo secreto
+            } else {
+                tentativas--;
+                erroMsg.textContent = `Senha incorreta! Você tem ${tentativas} tentativa(s) restante(s).`;
+                conteudo.style.display = "none"; // Mantém o conteúdo escondido
+                if (tentativas === 0) {
+                    erroMsg.textContent = "Acesso bloqueado! Número de tentativas excedido.";
+                    document.getElementById("senha").disabled = true;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
